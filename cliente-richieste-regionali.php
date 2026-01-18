@@ -67,6 +67,7 @@ class Cliente_Richieste_Regionali {
         require_once CRR_PLUGIN_DIR . 'includes/class-form-handler.php';
         require_once CRR_PLUGIN_DIR . 'includes/class-email-sender.php';
         require_once CRR_PLUGIN_DIR . 'includes/class-admin.php';
+        require_once CRR_PLUGIN_DIR . 'includes/class-updater.php';
     }
 
     /**
@@ -95,6 +96,9 @@ class Cliente_Richieste_Regionali {
         if (is_admin()) {
             $this->admin = new CRR_Admin($this->database, $this->email_sender);
         }
+
+        // Inizializza l'updater per gli aggiornamenti automatici da GitHub
+        new CRR_Updater();
     }
 
     /**
