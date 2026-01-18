@@ -22,3 +22,18 @@ node_modules/
 
 # Composer vendor (if any)
 vendor/
+
+# File sensibili (da non committare MAI)
+*.env
+.env.*
+config-local.php
+credentials.json
+secrets.json
+*.pem
+*.key
+*.cert
+
+# Database backup
+*.sql
+*.sql.gz
+*.dump
