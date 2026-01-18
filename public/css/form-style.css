@@ -1,0 +1,334 @@
+/**
+ * Stili Form Richiesta Cliente
+ */
+
+.crr-form-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.crr-form {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.crr-form-row {
+    margin-bottom: 20px;
+}
+
+.crr-form-row-2 {
+    display: flex;
+    gap: 20px;
+}
+
+.crr-form-row-2 .crr-form-field {
+    flex: 1;
+}
+
+.crr-form-row-3 {
+    display: flex;
+    gap: 20px;
+}
+
+.crr-form-row-3 .crr-form-field {
+    flex: 1;
+}
+
+.crr-form-row-3 .crr-form-field-small {
+    flex: 0 0 100px;
+}
+
+.crr-form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.crr-form-field label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333;
+    font-size: 14px;
+}
+
+.crr-form-field label .required {
+    color: #dc3545;
+}
+
+.crr-form-field input,
+.crr-form-field select,
+.crr-form-field textarea {
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 15px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.crr-form-field input:focus,
+.crr-form-field select:focus,
+.crr-form-field textarea:focus {
+    border-color: #0073aa;
+    box-shadow: 0 0 0 2px rgba(0, 115, 170, 0.2);
+    outline: none;
+}
+
+.crr-form-field input.crr-error,
+.crr-form-field select.crr-error,
+.crr-form-field textarea.crr-error {
+    border-color: #dc3545;
+}
+
+.crr-form-field textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.crr-error-message {
+    color: #dc3545;
+    font-size: 13px;
+    margin-top: 4px;
+    display: none;
+}
+
+.crr-form-field.has-error .crr-error-message {
+    display: block;
+}
+
+.crr-form-submit {
+    margin-top: 30px;
+}
+
+.crr-submit-btn {
+    background: #0073aa;
+    color: #fff;
+    border: none;
+    padding: 14px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+}
+
+.crr-submit-btn:hover {
+    background: #005a87;
+}
+
+.crr-submit-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.crr-btn-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.crr-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: crr-spin 0.8s linear infinite;
+}
+
+@keyframes crr-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.crr-form-message {
+    margin-top: 20px;
+    padding: 15px 20px;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+.crr-form-message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.crr-form-message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* ========================================
+   NUOVI TIPI DI CAMPO
+   ======================================== */
+
+/* Heading e Paragraph */
+.crr-form-heading {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.crr-form-heading h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1d2327;
+    border-bottom: 2px solid #0073aa;
+    padding-bottom: 10px;
+}
+
+.crr-form-paragraph {
+    margin-bottom: 15px;
+}
+
+.crr-form-paragraph p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Checkbox singolo */
+.crr-form-field-checkbox {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.crr-checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: normal !important;
+}
+
+.crr-checkbox-label input[type="checkbox"] {
+    width: auto;
+    margin-top: 3px;
+    cursor: pointer;
+}
+
+.crr-checkbox-label span {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+}
+
+.crr-checkbox-label span .required {
+    color: #dc3545;
+}
+
+/* Checkbox Group */
+.crr-form-field-checkbox-group > label {
+    margin-bottom: 10px;
+}
+
+.crr-checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.crr-checkbox-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.crr-checkbox-option input[type="checkbox"] {
+    width: auto;
+    cursor: pointer;
+}
+
+.crr-checkbox-option span {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Radio Group */
+.crr-form-field-radio > label {
+    margin-bottom: 10px;
+}
+
+.crr-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.crr-radio-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.crr-radio-option input[type="radio"] {
+    width: auto;
+    cursor: pointer;
+}
+
+.crr-radio-option span {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Date e Time inputs */
+.crr-form-field input[type="date"],
+.crr-form-field input[type="time"] {
+    padding: 10px 14px;
+}
+
+/* Number input */
+.crr-form-field input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.crr-form-field input[type="number"]::-webkit-outer-spin-button,
+.crr-form-field input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* URL input */
+.crr-form-field input[type="url"] {
+    font-family: monospace;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .crr-form-container {
+        padding: 10px;
+    }
+
+    .crr-form {
+        padding: 20px;
+    }
+
+    .crr-form-row-2,
+    .crr-form-row-3 {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .crr-form-row-3 .crr-form-field-small {
+        flex: 1;
+    }
+
+    .crr-checkbox-group,
+    .crr-radio-group {
+        padding-left: 0;
+    }
+}

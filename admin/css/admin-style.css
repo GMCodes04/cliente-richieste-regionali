@@ -1,0 +1,398 @@
+/**
+ * Stili Admin - Cliente Richieste Regionali
+ */
+
+/* Filtri */
+.crr-filters {
+    margin: 15px 0;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ccd0d4;
+}
+
+.crr-filters form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.crr-filters select {
+    min-width: 150px;
+}
+
+/* Statistiche */
+.crr-stats {
+    margin: 10px 0;
+    color: #666;
+}
+
+/* Status badge */
+.crr-status {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.crr-status-success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.crr-status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.crr-status-error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Tabella richieste */
+.wp-list-table .column-richiesta {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Tabella contatti */
+.crr-contatti-table input[type="email"],
+.crr-contatti-table input[type="text"],
+.crr-contatti-table textarea {
+    width: 100%;
+}
+
+.crr-contatti-table textarea {
+    min-height: 50px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-size: 13px;
+}
+
+.crr-contatti-table input[type="checkbox"] {
+    margin: 0;
+}
+
+/* Dettaglio richiesta */
+.crr-dettaglio-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.crr-dettaglio-card {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    padding: 20px;
+}
+
+.crr-dettaglio-card h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.crr-dettaglio-card .form-table th {
+    width: 120px;
+    padding: 10px 0;
+}
+
+.crr-dettaglio-card .form-table td {
+    padding: 10px 0;
+}
+
+.crr-richiesta-text {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 4px;
+    line-height: 1.6;
+}
+
+.crr-dettaglio-meta {
+    grid-column: span 2;
+}
+
+/* Impostazioni */
+.crr-settings-section {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.crr-settings-section h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.crr-settings-section .form-table th {
+    width: 200px;
+}
+
+.crr-settings-section fieldset label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Responsive */
+@media (max-width: 782px) {
+    .crr-filters form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .crr-filters select,
+    .crr-filters .button {
+        width: 100%;
+    }
+
+    .crr-dettaglio-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .crr-dettaglio-meta {
+        grid-column: span 1;
+    }
+}
+
+/* Notice stili */
+.crr-admin-notice {
+    padding: 10px 15px;
+    margin: 15px 0;
+    border-left: 4px solid #0073aa;
+    background: #fff;
+}
+
+.crr-admin-notice.success {
+    border-color: #46b450;
+}
+
+.crr-admin-notice.error {
+    border-color: #dc3232;
+}
+
+/* Loading overlay */
+.crr-loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.crr-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+/* Pulsanti azioni nella tabella */
+.wp-list-table .button-small {
+    margin-right: 5px;
+}
+
+.wp-list-table .button-small:last-child {
+    margin-right: 0;
+}
+
+/* ========================================
+   FORM BUILDER
+   ======================================== */
+
+.crr-form-builder-wrap {
+    max-width: 900px;
+}
+
+.crr-builder-info {
+    background: #f0f6fc;
+    border: 1px solid #c3c4c7;
+    border-left: 4px solid #0073aa;
+    padding: 12px 15px;
+    margin: 15px 0;
+}
+
+.crr-builder-info code {
+    background: #fff;
+    padding: 3px 8px;
+    margin: 0 5px;
+}
+
+.crr-builder-container {
+    margin-top: 20px;
+}
+
+.crr-fields-list {
+    background: #f6f7f7;
+    padding: 15px;
+    min-height: 100px;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+}
+
+.crr-field-item {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+}
+
+.crr-field-item:last-child {
+    margin-bottom: 0;
+}
+
+.crr-field-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    cursor: pointer;
+    background: #fafafa;
+    border-bottom: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+
+.crr-field-item .crr-field-content:not([style*="display: none"]) + .crr-field-header,
+.crr-field-header:hover {
+    background: #f0f0f1;
+}
+
+.crr-field-drag {
+    cursor: move;
+    color: #787c82;
+    margin-right: 10px;
+}
+
+.crr-field-drag:hover {
+    color: #1d2327;
+}
+
+.crr-field-title {
+    flex: 1;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.crr-field-type-badge {
+    background: #dcdcde;
+    color: #50575e;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    margin-right: 10px;
+}
+
+.crr-field-toggle {
+    color: #787c82;
+    margin-right: 10px;
+}
+
+.crr-field-remove {
+    background: none;
+    border: none;
+    color: #b32d2e;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+}
+
+.crr-field-remove:hover {
+    color: #a00;
+}
+
+.crr-field-content {
+    padding: 20px;
+    border-top: 1px solid #c3c4c7;
+}
+
+.crr-field-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.crr-field-row:last-child {
+    margin-bottom: 0;
+}
+
+.crr-field-col {
+    flex: 1;
+}
+
+.crr-field-col-full {
+    flex: 1 1 100%;
+}
+
+.crr-field-col label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #1d2327;
+}
+
+.crr-field-col input,
+.crr-field-col select,
+.crr-field-col textarea {
+    width: 100%;
+}
+
+.crr-field-checkboxes {
+    display: flex;
+    gap: 25px;
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f1;
+}
+
+.crr-field-checkboxes label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.crr-add-field-container {
+    margin-top: 15px;
+    text-align: center;
+}
+
+#crr-add-field {
+    padding: 8px 20px;
+}
+
+#crr-add-field .dashicons {
+    margin-right: 5px;
+    vertical-align: middle;
+    margin-top: -2px;
+}
+
+.crr-field-placeholder {
+    background: #e5f5fa;
+    border: 2px dashed #0073aa;
+    border-radius: 4px;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+/* Responsive form builder */
+@media (max-width: 782px) {
+    .crr-field-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .crr-field-checkboxes {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .crr-field-type-badge {
+        display: none;
+    }
+}
