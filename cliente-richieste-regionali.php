@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Cliente Richieste Regionali
- * Plugin URI:
+ * Plugin URI: https://gmcodes.it
  * Description: Gestisce le richieste dei clienti e invia email automatiche ai contatti regionali con solo i dati selezionati.
- * Version: 1.1.0
- * Author: Marco
- * Author URI:
+ * Version: 1.1.1
+ * Author: Marco Giannetti - GMCodes.it
+ * Author URI: https://gmcodes.it
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: cliente-richieste-regionali
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Definizione costanti
-define('CRR_VERSION', '1.1.0');
+define('CRR_VERSION', '1.1.1');
 define('CRR_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('CRR_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('CRR_PLUGIN_BASENAME', plugin_basename(__FILE__));
