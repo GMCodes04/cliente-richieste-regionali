@@ -3,7 +3,7 @@
  * Plugin Name: Cliente Richieste Regionali
  * Plugin URI: https://gmcodes.it
  * Description: Gestisce le richieste dei clienti e invia email automatiche ai contatti regionali con solo i dati selezionati.
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Marco Giannetti - GMCodes.it
  * Author URI: https://gmcodes.it
  * License: GPL v2 or later
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Definizione costanti
-define('CRR_VERSION', '1.1.1');
+define('CRR_VERSION', '1.1.2');
 define('CRR_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('CRR_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('CRR_PLUGIN_BASENAME', plugin_basename(__FILE__));

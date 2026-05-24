@@ -107,6 +107,7 @@ function crr_get_field_value($richiesta, $field_id) {
     </div>
 
     <!-- Tabella -->
+    <div class="crr-table-scroll-wrap">
     <table class="wp-list-table widefat fixed striped">
         <thead>
             <tr>
@@ -202,6 +203,7 @@ function crr_get_field_value($richiesta, $field_id) {
             <?php endif; ?>
         </tbody>
     </table>
+    </div><!-- .crr-table-scroll-wrap -->
 
     <!-- Paginazione -->
     <?php if ($total_pages > 1) : ?>

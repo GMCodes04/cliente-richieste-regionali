@@ -1,5 +1,6 @@
 /**
  * Stili Form Richiesta Cliente
+ * Solo CSS strutturale — font, colori e stili visivi ereditati dal tema attivo.
  */
 
 .crr-form-container {
@@ -9,10 +10,7 @@
 }
 
 .crr-form {
-    background: #fff;
     padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .crr-form-row {
@@ -46,40 +44,40 @@
     flex-direction: column;
 }
 
+/* Label: eredita font e colore dal tema */
 .crr-form-field label {
     font-weight: 600;
     margin-bottom: 6px;
-    color: #333;
-    font-size: 14px;
 }
 
-.crr-form-field label .required {
+.crr-form-field label .required,
+.crr-checkbox-label span .required {
     color: #dc3545;
 }
 
+/* Input/select/textarea: struttura garantita, stile visivo dal tema */
 .crr-form-field input,
 .crr-form-field select,
 .crr-form-field textarea {
-    padding: 12px 14px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 15px;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    font: inherit;
+    color: inherit;
     width: 100%;
     box-sizing: border-box;
 }
 
+/* Focus: usa il colore primario del tema (block themes) con fallback a currentColor */
 .crr-form-field input:focus,
 .crr-form-field select:focus,
 .crr-form-field textarea:focus {
-    border-color: #0073aa;
-    box-shadow: 0 0 0 2px rgba(0, 115, 170, 0.2);
-    outline: none;
+    outline: 2px solid var(--wp--preset--color--primary, currentColor);
+    outline-offset: 1px;
 }
 
+/* Errore validazione */
 .crr-form-field input.crr-error,
 .crr-form-field select.crr-error,
 .crr-form-field textarea.crr-error {
+    outline: 2px solid #dc3545;
     border-color: #dc3545;
 }
 
@@ -90,7 +88,7 @@
 
 .crr-error-message {
     color: #dc3545;
-    font-size: 13px;
+    font-size: 0.85em;
     margin-top: 4px;
     display: none;
 }
@@ -103,25 +101,15 @@
     margin-top: 30px;
 }
 
+/* Bottone: eredita gli stili del tema (il tema stila button{}) */
 .crr-submit-btn {
-    background: #0073aa;
-    color: #fff;
-    border: none;
-    padding: 14px 30px;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 4px;
+    font: inherit;
     cursor: pointer;
-    transition: background 0.2s;
     width: 100%;
 }
 
-.crr-submit-btn:hover {
-    background: #005a87;
-}
-
 .crr-submit-btn:disabled {
-    background: #ccc;
+    opacity: 0.6;
     cursor: not-allowed;
 }
 
@@ -132,26 +120,26 @@
     gap: 10px;
 }
 
+/* Spinner: usa il colore del testo del bottone */
 .crr-spinner {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #fff;
+    width: 1em;
+    height: 1em;
+    border: 2px solid currentColor;
     border-top-color: transparent;
     border-radius: 50%;
     animation: crr-spin 0.8s linear infinite;
+    flex-shrink: 0;
 }
 
 @keyframes crr-spin {
-    to {
-        transform: rotate(360deg);
-    }
+    to { transform: rotate(360deg); }
 }
 
+/* Messaggi esito */
 .crr-form-message {
     margin-top: 20px;
     padding: 15px 20px;
     border-radius: 4px;
-    font-size: 15px;
 }
 
 .crr-form-message.success {
@@ -167,7 +155,7 @@
 }
 
 /* ========================================
-   NUOVI TIPI DI CAMPO
+   TIPI DI CAMPO SPECIALI
    ======================================== */
 
 /* Heading e Paragraph */
@@ -178,12 +166,8 @@
 
 .crr-form-heading h3 {
     margin: 0;
-    padding: 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: #1d2327;
-    border-bottom: 2px solid #0073aa;
     padding-bottom: 10px;
+    border-bottom: 2px solid var(--wp--preset--color--primary, currentColor);
 }
 
 .crr-form-paragraph {
@@ -192,8 +176,6 @@
 
 .crr-form-paragraph p {
     margin: 0;
-    color: #666;
-    font-size: 14px;
     line-height: 1.6;
 }
 
@@ -218,13 +200,7 @@
 }
 
 .crr-checkbox-label span {
-    font-size: 14px;
-    color: #333;
     line-height: 1.5;
-}
-
-.crr-checkbox-label span .required {
-    color: #dc3545;
 }
 
 /* Checkbox Group */
@@ -251,11 +227,6 @@
     cursor: pointer;
 }
 
-.crr-checkbox-option span {
-    font-size: 14px;
-    color: #333;
-}
-
 /* Radio Group */
 .crr-form-field-radio > label {
     margin-bottom: 10px;
@@ -278,17 +249,6 @@
 .crr-radio-option input[type="radio"] {
     width: auto;
     cursor: pointer;
-}
-
-.crr-radio-option span {
-    font-size: 14px;
-    color: #333;
-}
-
-/* Date e Time inputs */
-.crr-form-field input[type="date"],
-.crr-form-field input[type="time"] {
-    padding: 10px 14px;
 }
 
 /* Number input */
@@ -314,7 +274,7 @@
     }
 
     .crr-form {
-        padding: 20px;
+        padding: 15px;
     }
 
     .crr-form-row-2,
@@ -325,10 +285,5 @@
 
     .crr-form-row-3 .crr-form-field-small {
         flex: 1;
-    }
-
-    .crr-checkbox-group,
-    .crr-radio-group {
-        padding-left: 0;
     }
 }

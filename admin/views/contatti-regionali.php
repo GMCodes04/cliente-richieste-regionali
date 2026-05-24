@@ -36,22 +36,22 @@ $contatti = CRR()->database->get_contatti();
                     $key = sanitize_title($contatto['regione']);
                 ?>
                     <tr>
-                        <td>
+                        <td data-label="<?php _e('Attivo', 'cliente-richieste-regionali'); ?>">
                             <input type="checkbox"
                                    name="crr_attivo_<?php echo esc_attr($key); ?>"
                                    value="1"
                                    <?php checked($contatto['attivo'], 1); ?>>
                         </td>
-                        <td>
+                        <td data-label="<?php _e('Regione', 'cliente-richieste-regionali'); ?>">
                             <strong><?php echo esc_html($contatto['regione']); ?></strong>
                         </td>
-                        <td>
+                        <td data-label="<?php _e('Email Contatti', 'cliente-richieste-regionali'); ?>">
                             <textarea name="crr_emails_<?php echo esc_attr($key); ?>"
                                       class="large-text"
                                       rows="2"
                                       placeholder="email1@esempio.it, email2@esempio.it"><?php echo esc_textarea(isset($contatto['emails']) ? $contatto['emails'] : (isset($contatto['email']) ? $contatto['email'] : '')); ?></textarea>
                         </td>
-                        <td>
+                        <td data-label="<?php _e('Nome Referente', 'cliente-richieste-regionali'); ?>">
                             <input type="text"
                                    name="crr_nome_<?php echo esc_attr($key); ?>"
                                    value="<?php echo esc_attr($contatto['nome_contatto']); ?>"

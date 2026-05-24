@@ -158,6 +158,90 @@
     .crr-dettaglio-meta {
         grid-column: span 1;
     }
+
+    /* Tabella Richieste - scroll orizzontale */
+    .crr-table-scroll-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -4px;
+        padding: 0 4px;
+    }
+
+    .crr-table-scroll-wrap .wp-list-table {
+        table-layout: auto;
+        min-width: 680px;
+    }
+
+    .crr-table-scroll-wrap .wp-list-table th,
+    .crr-table-scroll-wrap .wp-list-table td {
+        white-space: nowrap;
+    }
+
+    .crr-table-scroll-wrap .wp-list-table .column-richiesta {
+        max-width: 160px;
+        white-space: nowrap;
+    }
+
+    /* Tabella Contatti - layout card */
+    .crr-contatti-table thead {
+        display: none;
+    }
+
+    .crr-contatti-table,
+    .crr-contatti-table tbody,
+    .crr-contatti-table tr,
+    .crr-contatti-table td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .crr-contatti-table tbody tr {
+        margin-bottom: 12px;
+        border: 1px solid #ccd0d4;
+        border-radius: 4px;
+        padding: 10px 12px;
+        background: #fff;
+    }
+
+    .crr-contatti-table tbody tr:nth-child(odd) {
+        background: #fff;
+    }
+
+    .crr-contatti-table tbody td {
+        padding: 6px 0;
+        border: none;
+    }
+
+    .crr-contatti-table tbody td::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 600;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #787c82;
+        margin-bottom: 4px;
+    }
+
+    .crr-contatti-table tbody td:first-child {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-bottom: 8px;
+        margin-bottom: 4px;
+        border-bottom: 1px solid #f0f0f1;
+    }
+
+    .crr-contatti-table tbody td:first-child::before {
+        display: inline;
+        margin-bottom: 0;
+    }
+
+    .crr-contatti-table .large-text,
+    .crr-contatti-table .regular-text {
+        width: 100%;
+        box-sizing: border-box;
+    }
 }
 
 /* Notice stili */
