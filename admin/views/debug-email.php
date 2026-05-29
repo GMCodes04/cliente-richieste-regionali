@@ -20,6 +20,21 @@ if (file_exists($log_file)) {
 
     <p><?php _e('Usa questa pagina per diagnosticare problemi con l\'invio delle email.', 'cliente-richieste-regionali'); ?></p>
 
+    <!-- Aggiornamenti -->
+    <div class="crr-settings-section">
+        <h2><?php _e('Aggiornamenti Plugin', 'cliente-richieste-regionali'); ?></h2>
+        <p class="description">
+            <?php _e('Se hai creato una nuova release su GitHub ma WordPress non mostra la notifica di aggiornamento, svuota la cache. WordPress controlla automaticamente ogni 6 ore.', 'cliente-richieste-regionali'); ?>
+        </p>
+        <form method="post" action="">
+            <?php wp_nonce_field('crr_clear_github_cache', 'crr_debug_nonce'); ?>
+            <p class="submit">
+                <input type="submit" name="crr_clear_github_cache" class="button button-secondary"
+                       value="<?php _e('Svuota cache aggiornamenti', 'cliente-richieste-regionali'); ?>">
+            </p>
+        </form>
+    </div>
+
     <!-- Test Email -->
     <div class="crr-settings-section">
         <h2><?php _e('Invia Email di Test', 'cliente-richieste-regionali'); ?></h2>

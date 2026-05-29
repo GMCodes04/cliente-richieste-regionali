@@ -213,28 +213,56 @@ class CRR_Updater {
     }
 
     /**
-     * Dopo l'installazione, rinomina la cartella
+     * Dopo l'installazione, sposta i file nella cartella corretta del plugin
      */
     public function after_install($response, $hook_extra, $result) {
         global $wp_filesystem;
 
-        // Verifica che sia il nostro plugin
-        if (!isset($hook_extra['plugin']) || $hook_extra['plugin'] !== $this->plugin_file) {
+        $main_filename = 'cliente-richieste-regionali.php';
+        $is_our_plugin = false;
+
+        // Caso 1: aggiornamento automatico via WordPress
+        if (isset($hook_extra['plugin']) && strpos($hook_extra['plugin'], $main_filename) !== false) {
+            $is_our_plugin = true;
+        }
+
+        // Caso 2: installazione/upload manuale — verifica che il file principale sia nella cartella estratta
+        if (!$is_our_plugin) {
+            $extracted_main = trailingslashit($result['destination']) . $main_filename;
+            if ($wp_filesystem->exists($extracted_main)) {
+                $is_our_plugin = true;
+            }
+        }
+
+        if (!$is_our_plugin) {
             return $result;
         }
 
-        // La cartella scaricata da GitHub ha un nome diverso (es: GMCodes04-cliente-richieste-regionali-xxxxx)
-        // Dobbiamo rinominarla
-        $plugin_folder = WP_PLUGIN_DIR . '/' . $this->plugin_slug;
+        // Cartella di destinazione CORRETTA: usa il nome del repo (senza numero versione)
+        $target_folder = WP_PLUGIN_DIR . '/' . $this->github_repo;
 
-        if ($wp_filesystem->move($result['destination'], $plugin_folder)) {
-            $result['destination'] = $plugin_folder;
+        // Sposta i nuovi file nella cartella corretta (se non ci sono già)
+        if (wp_normalize_path($result['destination']) !== wp_normalize_path($target_folder)) {
+            // Elimina la cartella target se esiste (es. vecchia versione pulita)
+            if ($wp_filesystem->is_dir($target_folder)) {
+                $wp_filesystem->delete($target_folder, true);
+            }
+
+            if ($wp_filesystem->move($result['destination'], $target_folder)) {
+                $result['destination'] = $target_folder;
+            }
         }
 
-        // Riattiva il plugin
-        activate_plugin($this->plugin_file);
+        // Elimina sempre la vecchia cartella versionata se diversa dalla target
+        // (es. cliente-richieste-regionali-1.1.1 → cliente-richieste-regionali)
+        $old_versioned_folder = WP_PLUGIN_DIR . '/' . $this->plugin_slug;
+        if (wp_normalize_path($old_versioned_folder) !== wp_normalize_path($target_folder) && $wp_filesystem->is_dir($old_versioned_folder)) {
+            $wp_filesystem->delete($old_versioned_folder, true);
+        }
 
-        // Pulisci la cache
+        // Riattiva il plugin con il percorso corretto
+        activate_plugin($this->github_repo . '/' . $main_filename);
+
         delete_transient('crr_github_release');
 
         return $result;

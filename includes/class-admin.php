@@ -325,6 +325,19 @@ class CRR_Admin {
             return;
         }
 
+        // Svuota cache aggiornamenti GitHub
+        if (isset($_POST['crr_clear_github_cache']) && wp_verify_nonce($_POST['crr_debug_nonce'], 'crr_clear_github_cache')) {
+            delete_transient('crr_github_release');
+            delete_site_transient('update_plugins');
+            $update_page = admin_url('update-core.php');
+            echo '<div class="notice notice-success"><p>' .
+                sprintf(
+                    __('Cache aggiornamenti svuotata. Vai su <a href="%s">Bacheca → Aggiornamenti</a> e clicca "Controlla di nuovo".', 'cliente-richieste-regionali'),
+                    esc_url($update_page)
+                ) .
+                '</p></div>';
+        }
+
         // Gestione pulizia log
         if (isset($_POST['crr_clear_log']) && wp_verify_nonce($_POST['crr_debug_nonce'], 'crr_clear_log')) {
             $log_file = CRR_PLUGIN_DIR . 'email-debug.log';
