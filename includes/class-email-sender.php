@@ -160,7 +160,7 @@ class CRR_Email_Sender {
             }
 
             $field_id = $field['id'];
-            $field_label = $field['label'];
+            $field_label = wp_strip_all_tags($field['label']);
 
             // Cerca il valore nei campi standard della richiesta
             $valore = '';
@@ -257,7 +257,7 @@ class CRR_Email_Sender {
             }
 
             $field_id = $field['id'];
-            $field_label = $field['label'];
+            $field_label = wp_strip_all_tags($field['label']);
 
             // Verifica se il campo deve essere incluso nell'email
             // Prima controlla le impostazioni email, poi il Form Builder

@@ -10,6 +10,20 @@
 if (!defined('ABSPATH')) {
     exit;
 }
+
+// Variabili reCAPTCHA (impostate da render_form, default sicuri)
+if (!isset($recaptcha_enabled)) $recaptcha_enabled = false;
+if (!isset($recaptcha_site_key)) $recaptcha_site_key = '';
+
+// Tag HTML permessi nelle etichette checkbox
+$allowed_label_html = array(
+    'a'      => array('href' => array(), 'target' => array(), 'rel' => array()),
+    'strong' => array(),
+    'em'     => array(),
+    'br'     => array(),
+    'span'   => array('class' => array()),
+    'u'      => array(),
+);
 ?>
 
 <div class="crr-form-container">
@@ -85,7 +99,7 @@ if (!defined('ABSPATH')) {
                     <div class="crr-form-field crr-form-field-checkbox">
                         <label class="crr-checkbox-label">
                             <input type="checkbox" id="crr_<?php echo $field_id; ?>" name="<?php echo $field_id; ?>" value="1"<?php echo $required_html; ?>>
-                            <span><?php echo $field_label; ?><?php echo $required_star; ?></span>
+                            <span><?php echo wp_kses($field['label'], $allowed_label_html); ?><?php echo $required_star; ?></span>
                         </label>
                         <span class="crr-error-message"></span>
                     </div>
@@ -148,6 +162,13 @@ if (!defined('ABSPATH')) {
             <?php endif; ?>
 
         <?php endforeach; ?>
+
+        <?php if ($recaptcha_enabled && $recaptcha_site_key) : ?>
+            <div class="crr-form-row crr-form-recaptcha">
+                <div class="g-recaptcha" data-sitekey="<?php echo esc_attr($recaptcha_site_key); ?>"></div>
+                <span class="crr-error-message"></span>
+            </div>
+        <?php endif; ?>
 
         <div class="crr-form-row crr-form-submit">
             <button type="submit" class="crr-submit-btn">

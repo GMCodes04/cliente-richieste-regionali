@@ -225,6 +225,17 @@ class CRR_Admin {
             update_option('crr_email_copia_completa', sanitize_email($_POST['crr_email_copia_completa']));
         }
 
+        // reCAPTCHA
+        update_option('crr_recaptcha_enabled', isset($_POST['crr_recaptcha_enabled']) ? 1 : 0);
+
+        if (isset($_POST['crr_recaptcha_site_key'])) {
+            update_option('crr_recaptcha_site_key', sanitize_text_field($_POST['crr_recaptcha_site_key']));
+        }
+
+        if (isset($_POST['crr_recaptcha_secret_key'])) {
+            update_option('crr_recaptcha_secret_key', sanitize_text_field($_POST['crr_recaptcha_secret_key']));
+        }
+
         add_settings_error('crr_messages', 'crr_message', __('Impostazioni salvate.', 'cliente-richieste-regionali'), 'updated');
     }
 
@@ -365,12 +376,24 @@ class CRR_Admin {
 
         $fields = array();
 
+        $allowed_label_html = array(
+            'a'      => array('href' => array(), 'target' => array(), 'rel' => array()),
+            'strong' => array(),
+            'em'     => array(),
+            'br'     => array(),
+            'span'   => array('class' => array()),
+            'u'      => array(),
+        );
+
         if (isset($_POST['crr_fields']) && is_array($_POST['crr_fields'])) {
             foreach ($_POST['crr_fields'] as $index => $field) {
+                $field_type = sanitize_key($field['type']);
                 $fields[] = array(
                     'id' => sanitize_key($field['id']),
-                    'label' => sanitize_text_field($field['label']),
-                    'type' => sanitize_key($field['type']),
+                    'label' => ($field_type === 'checkbox')
+                        ? wp_kses($field['label'], $allowed_label_html)
+                        : sanitize_text_field($field['label']),
+                    'type' => $field_type,
                     'required' => isset($field['required']) ? 1 : 0,
                     'placeholder' => sanitize_text_field($field['placeholder'] ?? ''),
                     'options' => isset($field['options']) ? sanitize_textarea_field($field['options']) : '',

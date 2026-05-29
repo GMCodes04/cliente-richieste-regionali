@@ -26,7 +26,16 @@
 
             // Validazione
             if (!validateForm()) {
+                showMessage(crr_ajax.messages.validation_error, 'error');
                 return;
+            }
+
+            // Verifica reCAPTCHA lato client
+            if (crr_ajax.recaptcha_enabled && typeof grecaptcha !== 'undefined') {
+                if (!grecaptcha.getResponse()) {
+                    showMessage(crr_ajax.messages.recaptcha_error, 'error');
+                    return;
+                }
             }
 
             // Mostra loading
@@ -77,6 +86,11 @@
                 }
             });
 
+            // Aggiungi token reCAPTCHA se abilitato
+            if (crr_ajax.recaptcha_enabled && typeof grecaptcha !== 'undefined') {
+                formData['g-recaptcha-response'] = grecaptcha.getResponse();
+            }
+
             // Debug
             console.log('Form data:', formData);
 
@@ -92,6 +106,9 @@
                     if (response.success) {
                         showMessage(response.data.message, 'success');
                         $form[0].reset();
+                        if (typeof grecaptcha !== 'undefined') {
+                            grecaptcha.reset();
+                        }
                     } else {
                         if (response.data && response.data.errors) {
                             showFieldErrors(response.data.errors);
@@ -174,6 +191,15 @@
             });
 
             console.log('Validazione completata. Form valido:', isValid);
+
+            // Focus sul primo campo non valido
+            if (!isValid) {
+                var $firstError = $form.find('.crr-error').first();
+                if ($firstError.length) {
+                    $firstError.focus();
+                }
+            }
+
             return isValid;
         }
 

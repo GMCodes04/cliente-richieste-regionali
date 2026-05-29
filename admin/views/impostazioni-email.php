@@ -24,6 +24,10 @@ $nome_mittente = get_option('crr_nome_mittente', get_bloginfo('name'));
 $email_copia_completa = get_option('crr_email_copia_completa', '');
 $copia_completa_attiva = get_option('crr_copia_completa_attiva', 0);
 
+$recaptcha_enabled = get_option('crr_recaptcha_enabled', 0);
+$recaptcha_site_key = get_option('crr_recaptcha_site_key', '');
+$recaptcha_secret_key = get_option('crr_recaptcha_secret_key', '');
+
 // Tipi di campo da escludere dalle impostazioni email (non hanno dati utili)
 $excluded_types = array('heading', 'paragraph', 'hidden');
 ?>
@@ -175,6 +179,52 @@ $excluded_types = array('heading', 'paragraph', 'hidden');
                         <p class="description">
                             <?php _e('Indirizzo email che riceverà la copia completa di tutte le richieste.', 'cliente-richieste-regionali'); ?>
                         </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- reCAPTCHA -->
+        <div class="crr-settings-section">
+            <h2><?php _e('reCAPTCHA (Anti-spam)', 'cliente-richieste-regionali'); ?></h2>
+            <p class="description">
+                <?php _e('Proteggi il form dai bot con Google reCAPTCHA v2 (checkbox "Non sono un robot").', 'cliente-richieste-regionali'); ?>
+                <?php printf(
+                    __('Ottieni le chiavi su <a href="%s" target="_blank" rel="noopener">Google reCAPTCHA Admin</a> — scegli il tipo <strong>reCAPTCHA v2 → "Non sono un robot"</strong>.', 'cliente-richieste-regionali'),
+                    'https://www.google.com/recaptcha/admin'
+                ); ?>
+            </p>
+
+            <table class="form-table">
+                <tr>
+                    <th scope="row"><?php _e('Attiva reCAPTCHA', 'cliente-richieste-regionali'); ?></th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="crr_recaptcha_enabled" value="1" <?php checked($recaptcha_enabled, 1); ?>>
+                            <?php _e('Attiva protezione reCAPTCHA v2 sul form pubblico', 'cliente-richieste-regionali'); ?>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label for="crr_recaptcha_site_key"><?php _e('Chiave del sito (Site Key)', 'cliente-richieste-regionali'); ?></label>
+                    </th>
+                    <td>
+                        <input type="text" name="crr_recaptcha_site_key" id="crr_recaptcha_site_key"
+                               value="<?php echo esc_attr($recaptcha_site_key); ?>"
+                               class="large-text" autocomplete="off">
+                        <p class="description"><?php _e('Chiave pubblica — visibile nel front-end.', 'cliente-richieste-regionali'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label for="crr_recaptcha_secret_key"><?php _e('Chiave segreta (Secret Key)', 'cliente-richieste-regionali'); ?></label>
+                    </th>
+                    <td>
+                        <input type="password" name="crr_recaptcha_secret_key" id="crr_recaptcha_secret_key"
+                               value="<?php echo esc_attr($recaptcha_secret_key); ?>"
+                               class="large-text" autocomplete="off">
+                        <p class="description"><?php _e('Chiave privata — usata solo lato server per verificare il token. Non condividerla.', 'cliente-richieste-regionali'); ?></p>
                     </td>
                 </tr>
             </table>

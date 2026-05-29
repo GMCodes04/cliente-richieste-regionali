@@ -57,14 +57,24 @@ class CRR_Form_Handler {
             true
         );
 
+        wp_register_script(
+            'crr-recaptcha',
+            'https://www.google.com/recaptcha/api.js',
+            array(),
+            null,
+            true
+        );
+
         wp_localize_script('crr-form-script', 'crr_ajax', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('crr_form_nonce'),
+            'recaptcha_enabled' => !empty(get_option('crr_recaptcha_enabled')),
             'messages' => array(
                 'sending' => __('Invio in corso...', 'cliente-richieste-regionali'),
                 'success' => __('La tua richiesta è stata inviata con successo!', 'cliente-richieste-regionali'),
                 'error' => __('Si è verificato un errore. Riprova più tardi.', 'cliente-richieste-regionali'),
-                'validation_error' => __('Per favore compila tutti i campi obbligatori.', 'cliente-richieste-regionali')
+                'validation_error' => __('Per favore compila tutti i campi obbligatori.', 'cliente-richieste-regionali'),
+                'recaptcha_error' => __('Per favore completa la verifica anti-spam.', 'cliente-richieste-regionali')
             )
         ));
     }
@@ -82,6 +92,13 @@ class CRR_Form_Handler {
 
         // Ottieni i campi configurati
         $fields = CRR_Admin::get_form_fields();
+
+        // reCAPTCHA
+        $recaptcha_enabled = !empty(get_option('crr_recaptcha_enabled')) && !empty(get_option('crr_recaptcha_site_key'));
+        $recaptcha_site_key = get_option('crr_recaptcha_site_key', '');
+        if ($recaptcha_enabled) {
+            wp_enqueue_script('crr-recaptcha');
+        }
 
         // Inizia l'output buffering
         ob_start();
@@ -101,6 +118,16 @@ class CRR_Form_Handler {
             wp_send_json_error(array(
                 'message' => __('Errore di sicurezza. Ricarica la pagina e riprova.', 'cliente-richieste-regionali')
             ));
+        }
+
+        // Verifica reCAPTCHA
+        if (get_option('crr_recaptcha_enabled')) {
+            $token = isset($_POST['g-recaptcha-response']) ? sanitize_text_field($_POST['g-recaptcha-response']) : '';
+            if (empty($token) || !$this->verify_recaptcha($token)) {
+                wp_send_json_error(array(
+                    'message' => __('Verifica anti-spam fallita. Riprova.', 'cliente-richieste-regionali')
+                ));
+            }
         }
 
         // Debug: log dei dati ricevuti
@@ -214,6 +241,33 @@ class CRR_Form_Handler {
             'message' => __('La tua richiesta è stata inviata con successo! Ti contatteremo al più presto.', 'cliente-richieste-regionali'),
             'richiesta_id' => $richiesta_id
         ));
+    }
+
+    /**
+     * Verifica il token reCAPTCHA v2 con Google
+     */
+    private function verify_recaptcha($token) {
+        $secret_key = get_option('crr_recaptcha_secret_key', '');
+
+        if (empty($secret_key)) {
+            return true;
+        }
+
+        $response = wp_remote_post('https://www.google.com/recaptcha/api/siteverify', array(
+            'body' => array(
+                'secret'   => $secret_key,
+                'response' => $token,
+                'remoteip' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '',
+            )
+        ));
+
+        if (is_wp_error($response)) {
+            return false;
+        }
+
+        $result = json_decode(wp_remote_retrieve_body($response));
+
+        return !empty($result->success);
     }
 
     /**
